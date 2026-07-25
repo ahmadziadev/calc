@@ -1,0 +1,11 @@
+:root {
+    --primary-color: white;
+    --secondary-light: #e0d2b7;
+    --secondary-dark: #343432;
+    --accent: #fda857;
+
+    --screen-bg: #210303;
+    --screen-text: #ff7ac9;
+
+    --key-spacing: 10px;
+}
