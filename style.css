@@ -92,6 +92,13 @@ body {
     margin: calc(2 * var(--click-margin)) 0 0 calc(2 * var(--click-margin));
     box-shadow: none;
 }
+.keypad button:disabled {
+    margin: calc(2 * var(--click-margin)) 0 0 calc(2 * var(--click-margin));
+    opacity: 1;
+    /* background-color: gray; */
+    cursor: not-allowed;
+    box-shadow: none;
+}
 #zero, #equals {
     aspect-ratio: unset;
     flex: 1.5;
