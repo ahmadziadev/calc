@@ -15,9 +15,9 @@ function divide(a, b) {
     return Number(a) / Number(b);
 }
 
-let firstOperand;
-let secondOperand;
-let operator;
+let firstOperand = null;
+let secondOperand = null;
+let operator = null;
 let numbers = document.querySelectorAll(".number");
 let screen = document.querySelector(".screen");
 let decimalBtn = document.querySelector("#decimal");
@@ -46,38 +46,55 @@ function removeLeadingZeros(text) {
     if (text.length > 1 && text[1] != '.' && text[0] == '0') return text.slice(1);
     return text;
 }
+
+let operators = document.querySelectorAll(".operator");
+
+operators.forEach(op => {
+    op.addEventListener("click", () => {
+        if (screen.innerHTML == "") return;
+        firstOperand = screen.innerHTML;
+        clearScreen();
+        operator = op.id;
+    })
+});
+
 let controls = document.querySelectorAll(".controls");
 controls.forEach(control => {
     control.addEventListener("click", () => {
         switch (control.id) {
             case "c":
-                firstOperand = undefined;
-                secondOperand = undefined;
-                operator = undefined;
+                firstOperand = null;
+                secondOperand = null;
+                operator = null;
+                clearScreen();
                 break;
             
             case "equals":
-                secondOperand = screen.innerHTML;
-                operate(firstOperand, operator, secondOperand);
+                if (secondOperand == null) secondOperand = screen.innerHTML;
+                clearScreen();
+                let ans = operate(firstOperand, operator, secondOperand);
+                firstOperand = ans;
+                console.log([firstOperand, operator, secondOperand]);
+                screen.innerHTML = ans;
                 break;
             
-        
             default:
+                clearScreen();
                 break;
         }
-        clearScreen(); 
     })
 })
 
+
 function operate(firstOperand, operator, secondOperand) {
     switch (operator) {
-        case "+":
+        case "add":
             return add(firstOperand, secondOperand);
-        case "-":
+        case "subtract":
             return subtract(firstOperand, secondOperand);
-        case "*":
+        case "multiply":
             return multiply(firstOperand, secondOperand);
-        case "/":
+        case "divide":
             return divide(firstOperand, secondOperand);
         default:
             return null;
