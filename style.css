@@ -1,11 +1,111 @@
 :root {
-    --primary-color: white;
-    --secondary-light: #e0d2b7;
+    --primary-color: #eee5d8;
+    --secondary-light: #caba94;
     --secondary-dark: #343432;
-    --accent: #fda857;
+    --accent: #fe771d;
 
     --screen-bg: #210303;
     --screen-text: #ff7ac9;
 
-    --key-spacing: 10px;
+    --key-spacing: 0px;
+    --click-margin: 4px;
+    --content-padding: 20px;
+}
+
+@font-face {
+    font-family: "DSEG";
+    src: url(assets/fonts/DSEG_v046/DSEG7ClassicMini-BoldItalic.ttf);
+    font-weight: bold;
+    font-style: italic;
+}
+
+body {
+    min-height: 100vh;
+    background-color: #161616;
+    display: flex;
+    margin: 0px;
+    justify-content: center;
+    align-items: center;
+}
+
+.case {
+    box-sizing: border-box;
+    min-width: 400px;
+    display: flex;
+    flex-direction: column;
+    background-color: var(--secondary-light);
+    padding: 20px;
+    padding-top: 80px;
+
+    border-radius: 20px;
+}
+
+.keypad {
+    background-color: var(--secondary-dark);
+    display: flex;
+    flex-direction: column;
+    padding: var(--content-padding);
+    gap: var(--key-spacing);
+}
+.row {
+    display: flex;
+    gap: var(--key-spacing);
+}
+.keypad button {
+    flex: 1;
+    aspect-ratio: 1 / 1 ;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    /* padding: 4px; */
+    box-sizing: border-box;
+    margin: var(--click-margin);
+    border: solid 1px black;
+    cursor: pointer;
+    box-shadow: var(--click-margin) var(--click-margin) black;
+
+    font-family: "Varela Round";
+    font-weight: bold;
+    font-size: 30px;
+    border-radius: 8px;
+}
+
+
+.operator,
+.function,
+.controls {
+    background-color: var(--secondary-light);
+}
+
+.number {
+    background-color: var(--primary-color);
+}
+
+#equals {
+    background-color: var(--accent);
+}
+.keypad button:hover {
+    filter: brightness(0.5);
+}
+.keypad button:active {
+    margin: calc(2 * var(--click-margin)) 0 0 calc(2 * var(--click-margin));
+    box-shadow: none;
+}
+#zero, #equals {
+    aspect-ratio: unset;
+    flex: 1.5;
+}
+
+
+.screen {
+    background-color: var(--screen-bg);
+    color: var(--screen-text);
+    text-align: right;
+    padding: var(--content-padding);
+    font-family: "DSEG";
+    font-size: 30px;
+    text-shadow: 
+        0 0 15px red,
+        0 0 8px pink;
+    border-radius: 30px 30px 0px 0px;
 }
