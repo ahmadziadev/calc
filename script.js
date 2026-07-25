@@ -69,7 +69,6 @@ operators.forEach(op => {
 let controls = document.querySelectorAll(".controls");
 controls.forEach(control => {
     control.addEventListener("click", () => {
-        lastState = control.id;
         switch (control.id) {
             case "c":
                 init();
@@ -79,7 +78,6 @@ controls.forEach(control => {
                 if (secondOperand == null) secondOperand = screen.innerHTML;
                 clearScreen();
                 let ans = operate(firstOperand, operator, secondOperand);
-                if (ans == null) ans = "";
                 firstOperand = ans;
                 console.log([firstOperand, operator, secondOperand]);
                 screen.innerHTML = ans;
@@ -90,6 +88,7 @@ controls.forEach(control => {
                 clearScreen();
                 break;
         }
+        lastState = control.id;
     })
 })
 
@@ -101,7 +100,8 @@ function init() {
 }
 
 function operate(firstOperand, operator, secondOperand) {
-    if (secondOperand == null) return firstOperand;
+    if (firstOperand != null && secondOperand == null) return firstOperand;
+    if (firstOperand == null && secondOperand != null) return secondOperand;
     switch (operator) {
         case "add":
             return add(firstOperand, secondOperand);
@@ -114,6 +114,7 @@ function operate(firstOperand, operator, secondOperand) {
         case "percent":
             return percent(firstOperand, secondOperand);
         default:
-            return null;
+            if (firstOperand == null) return secondOperand;
+            return firstOperand;
     }
 }
