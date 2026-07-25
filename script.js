@@ -53,6 +53,7 @@ operators.forEach(op => {
     op.addEventListener("click", () => {
         if (screen.innerHTML == "") return;
         firstOperand = screen.innerHTML;
+        secondOperand = null;
         clearScreen();
         operator = op.id;
     })
