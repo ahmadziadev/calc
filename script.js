@@ -86,7 +86,7 @@ controls.forEach(control => {
 
 let audio = document.querySelector("#btnSound")
 keypadBtns.forEach(btn => {
-    btn.addEventListener("click", () => audio.play());
+    // btn.addEventListener("click", () => audio.play());
 });
 // screen processing functions
 function appendScreen(text) {
@@ -126,13 +126,17 @@ function operate() {
     console.log([firstOperand, operator, secondOperand])
     if (secondOperand == null) return firstOperand;
     if (firstOperand == null) return secondOperand;
+    let ans = null;
     switch (operator) {
         case "add":
-            return add(firstOperand, secondOperand);
+            ans = add(firstOperand, secondOperand);
+            break;
         case "subtract":
-            return subtract(firstOperand, secondOperand);
+            ans = subtract(firstOperand, secondOperand);
+            break;
         case "multiply":
-            return multiply(firstOperand, secondOperand);
+            ans = multiply(firstOperand, secondOperand);
+            break;
         case "divide":
             if (secondOperand == 0) {
                 firstOperand = null;
@@ -140,10 +144,18 @@ function operate() {
                 operator = null;
                 return "undefined";
             }
-            return divide(firstOperand, secondOperand);
+            ans = divide(firstOperand, secondOperand);
+            break;
         case "percent":
-            return percent(firstOperand, secondOperand);
+            ans =  percent(firstOperand, secondOperand);
+            break;
         default:
             return (firstOperand == null ? secondOperand : firstOperand);
+    }
+    return limitTo12Digits(ans);
+}
+function limitTo12Digits(text) {
+    if (text.replace('.', '').length > 12) {
+        return text.toPrecision(12);
     }
 }
