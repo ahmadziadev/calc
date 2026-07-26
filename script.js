@@ -30,6 +30,9 @@ let controls = document.querySelectorAll(".controls");
 let screen = document.querySelector(".screen");
 let decimalBtn = document.querySelector("#decimal");
 
+
+let keypadBtns = document.querySelectorAll(".keypad button");
+
 numbers.forEach(number => number.addEventListener("click", e => {
     if (lastState == "equals") init();
     if (screen.innerHTML.slice().replace(".", "").length < 12) {
@@ -81,6 +84,10 @@ controls.forEach(control => {
     })
 })
 
+let audio = document.querySelector("#btnSound")
+keypadBtns.forEach(btn => {
+    btn.addEventListener("click", () => audio.play());
+});
 // screen processing functions
 function appendScreen(text) {
     screen.innerHTML = removeLeadingZeros(screen.innerHTML + text);
