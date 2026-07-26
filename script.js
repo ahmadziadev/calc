@@ -152,10 +152,11 @@ function operate() {
         default:
             return (firstOperand == null ? secondOperand : firstOperand);
     }
-    return limitTo12Digits(ans);
+    return limitDigits(ans);
 }
-function limitTo12Digits(text) {
-    if (text.replace('.', '').length > 12) {
-        return text.toPrecision(12);
+function limitDigits(text) {
+    if (String(text).replace('.', '').length > 12) {
+        return text.toExponential(6);
     }
+    return text;
 }

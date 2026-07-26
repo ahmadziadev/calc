@@ -15,7 +15,7 @@
 
 @font-face {
     font-family: "DSEG";
-    src: url(assets/fonts/DSEG_v046/DSEG7ClassicMini-BoldItalic.ttf);
+    src: url(assets/fonts/DSEG_v046/modified/DSEG7ClassicMini-BoldItalic.woff2);
     font-weight: bold;
     font-style: italic;
 }
@@ -128,27 +128,26 @@ body {
 .screen {
     color: var(--screen-text);
     color: rgb(246, 118, 118);
-    text-align: right;
-    font-family: "DSEG", monospace;
-    font-size: 30px;
     text-shadow: 
         0 0 15px red,
         0 0 8px rgb(252, 133, 133);
-    padding: 8px;
     position: absolute;
     z-index: 1;
 }
 .background-screen {
     background-color: var(--screen-bg);
     color: rgb(60, 0, 0);
-    text-align: right;
-    font-family: "DSEG", monospace;
-    font-size: 30px;
     /* text-shadow: 
         0 0 15px red,
         0 0 8px pink; */
 
-    padding: 8px;
     z-index: 0;
     user-select: none;
+}
+.screen,
+.background-screen {
+    font-family: "DSEG", monospace;
+    font-size: 30px;
+    padding: 8px;
+    text-align: right;
 }
