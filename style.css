@@ -101,6 +101,11 @@ body {
     margin: calc(2 * var(--click-margin)) 0 0 calc(2 * var(--click-margin));
     box-shadow: none;
 }
+.keypad button.btn-pressed {
+    margin: calc(2 * var(--click-margin)) 0 0 calc(2 * var(--click-margin));
+    filter: brightness(0.5);
+    box-shadow: none;
+}
 .keypad button:disabled {
     margin: calc(2 * var(--click-margin)) 0 0 calc(2 * var(--click-margin));
     opacity: 1;

@@ -160,3 +160,45 @@ function limitDigits(text) {
     }
     return text;
 }
+
+const keyToButtonId = {
+    "0": "zero",
+    "1": "one",
+    "2": "two",
+    "3": "three",
+    "4": "four",
+    "5": "five",
+    "6": "six",
+    "7": "seven",
+    "8": "eight",
+    "9": "nine",
+    "+": "add",
+    "-": "subtract",
+    "*": "multiply",
+    "/": "divide",
+    "%": "percent",
+    "Enter": "equals",
+    "Backspace": "ce",
+    "Clear": "c",
+    "Delete": "ce",
+    "Escape": "c",
+    ".": "decimal",
+}
+
+document.addEventListener("keydown", e => {
+    const key = e.key;
+    if (key in keyToButtonId) {
+        let btn = document.getElementById(keyToButtonId[key]);
+        if (btn.disabled) return;
+        btn.classList.add("btn-pressed");
+    }
+});
+document.addEventListener("keyup", e => {
+    const key = e.key;
+    if (key in keyToButtonId) {
+        let btn = document.getElementById(keyToButtonId[key]);
+        if (btn.disabled) return;
+        btn.classList.remove("btn-pressed");
+        btn.click();
+    }
+})
