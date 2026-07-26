@@ -1,6 +1,6 @@
 # Calculator
 
-Small browser-based calculator demo using HTML/CSS/JS.
+Browser based emulator for Texas Instruments TI-2500 Calculator
 
 Usage
 - Open `index.html` in a browser (double-click or serve with a static server).
