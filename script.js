@@ -23,9 +23,13 @@ let firstOperand = null;
 let secondOperand = null;
 let operator = null;
 let lastState = null;
+
 let numbers = document.querySelectorAll(".number");
+let operators = document.querySelectorAll(".operator");
+let controls = document.querySelectorAll(".controls");
 let screen = document.querySelector(".screen");
 let decimalBtn = document.querySelector("#decimal");
+
 numbers.forEach(number => number.addEventListener("click", e => {
     if (lastState == "equals") init();
     if (screen.innerHTML.slice().replace(".", "").length < 12) {
@@ -34,6 +38,50 @@ numbers.forEach(number => number.addEventListener("click", e => {
     }
 }));
 
+operators.forEach(op => {
+    op.addEventListener("click", () => {
+        if (screenValid()) {
+            if (firstOperand == null) firstOperand = screen.innerHTML, console.log("here");
+            else if (secondOperand == null) secondOperand = screen.innerHTML, console.log("here2");
+            else if (lastState == "equals") secondOperand = null, console.log("here3");
+            else {
+                console.log("here4")
+                firstOperand = operate();
+                secondOperand = null;
+            }
+        }
+        clearScreen();
+        operator = op.id;
+        console.log([firstOperand, operator, secondOperand]);
+        lastState = op.id;
+    })
+});
+
+controls.forEach(control => {
+    control.addEventListener("click", () => {
+        switch (control.id) {
+            case "c":
+                init();
+                break;
+            
+            case "equals":
+                console.log(lastState);
+                if (secondOperand == null && screenValid() && lastState != "equals") secondOperand = screen.innerHTML;
+                if (secondOperand == null) operator = null;
+                firstOperand = operate();
+                screen.innerHTML = firstOperand;
+                break;
+            
+            default:
+                if (lastState == "equals") init();
+                else clearScreen();
+                break;
+        }
+        lastState = control.id;
+    })
+})
+
+// screen processing functions
 function appendScreen(text) {
     screen.innerHTML = removeLeadingZeros(screen.innerHTML + text);
     checkDecimal();
@@ -53,44 +101,11 @@ function removeLeadingZeros(text) {
     if (text.length > 1 && text[1] != '.' && text[0] == '0') return text.slice(1);
     return text;
 }
+function screenValid() {
+    return screen.innerHTML != "";
+}
 
-let operators = document.querySelectorAll(".operator");
 
-operators.forEach(op => {
-    op.addEventListener("click", () => {
-        if (screen.innerHTML != "") firstOperand = screen.innerHTML;
-        secondOperand = null;
-        clearScreen();
-        operator = op.id;
-        lastState = op.id;
-    })
-});
-
-let controls = document.querySelectorAll(".controls");
-controls.forEach(control => {
-    control.addEventListener("click", () => {
-        switch (control.id) {
-            case "c":
-                init();
-                break;
-            
-            case "equals":
-                if (secondOperand == null) secondOperand = screen.innerHTML;
-                clearScreen();
-                let ans = operate(firstOperand, operator, secondOperand);
-                firstOperand = ans;
-                console.log([firstOperand, operator, secondOperand]);
-                screen.innerHTML = ans;
-                break;
-            
-            default:
-                if (lastState == "equals") init();
-                clearScreen();
-                break;
-        }
-        lastState = control.id;
-    })
-})
 
 function init() {
     firstOperand = null;
@@ -99,9 +114,11 @@ function init() {
     clearScreen();
 }
 
-function operate(firstOperand, operator, secondOperand) {
-    if (firstOperand != null && secondOperand == null) return firstOperand;
-    if (firstOperand == null && secondOperand != null) return secondOperand;
+
+function operate() {
+    console.log([firstOperand, operator, secondOperand])
+    if (secondOperand == null) return firstOperand;
+    if (firstOperand == null) return secondOperand;
     switch (operator) {
         case "add":
             return add(firstOperand, secondOperand);
@@ -110,11 +127,16 @@ function operate(firstOperand, operator, secondOperand) {
         case "multiply":
             return multiply(firstOperand, secondOperand);
         case "divide":
+            if (secondOperand == 0) {
+                firstOperand = null;
+                secondOperand = null;
+                operator = null;
+                return "undefined";
+            }
             return divide(firstOperand, secondOperand);
         case "percent":
             return percent(firstOperand, secondOperand);
         default:
-            if (firstOperand == null) return secondOperand;
-            return firstOperand;
+            return (firstOperand == null ? secondOperand : firstOperand);
     }
 }

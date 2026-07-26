@@ -19,6 +19,15 @@
     font-weight: bold;
     font-style: italic;
 }
+@font-face {
+    font-family: "seg7";
+    src: url(assets/fonts/seg7.woff);
+}
+
+@font-face {
+    font-family: "7segment";
+    src: url(assets/fonts/7segment.woff);
+}
 
 body {
     min-height: 100vh;
